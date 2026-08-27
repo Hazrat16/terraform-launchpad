@@ -9,15 +9,14 @@ Here are the **main Terraform blocks**
 Used to configure Terraform itself.
 
 ### Purpose:
+
 - Define required Terraform version
 
 - Define required providers
 
 - Configure backend (remote state)
 
-  
-
-###  Sample code:
+### Sample code:
 
 ```bash
 terraform {
@@ -33,23 +32,22 @@ terraform {
  backend "s3" {
     bucket = "tf-state-bucket"
     key    = "dev/terraform.tfstate"
-    region = "us-west-2"
+    region = "us-east-1"
   }
 }
 ```
 
-
 ## 2. "provider" Block
+
 Defines **which cloud or service** Terraform will talk to. One project can have **multiple providers**.
 
 ### Purpose:
 
--   Authentication
-    
--   Region / endpoint configuration
-  
+- Authentication
+- Region / endpoint configuration
 
-###  Sample code:
+### Sample code:
+
 ```bash
 provider "aws" {
   region = "ap-south-1"
@@ -58,14 +56,14 @@ provider "aws" {
 ```
 
 ## 3. "resource" Block
+
 The **most important block** – it creates actual infrastructure.
 
 ### Purpose:
 
 - Create, update, delete infrastructure
-  
 
-###  Sample code:
+### Sample code:
 
 ```bash
 resource "aws_instance" "web" {
@@ -73,22 +71,23 @@ resource "aws_instance" "web" {
   instance_type = "t2.micro"
 }
 ```
+
 ### Format:
+
 ```bash
 resource "<PROVIDER>_<TYPE>" "<NAME>" { }
 ```
 
 ## 4. "variable" Block
+
 Defines **input variables**.
 
 ### Purpose:
--   Make code reusable
-    
--   Avoid hard-coding values
 
-  
+- Make code reusable
+- Avoid hard-coding values
 
-###  Sample code:
+### Sample code:
 
 ```bash
 variable "instance_type" {
@@ -97,23 +96,22 @@ variable "instance_type" {
 }
 ```
 
-###  Usage:
+### Usage:
 
 ```bash
 instance_type = var.instance_type
 ```
 
 ## 5. "output" Block
+
 Displays values after `terraform apply`.
 
 ### Purpose:
--   Show useful information
-    
--   Pass values to other modules
 
-  
+- Show useful information
+- Pass values to other modules
 
-###  Sample code:
+### Sample code:
 
 ```bash
 output "instance_ip" {
@@ -122,15 +120,15 @@ output "instance_ip" {
 ```
 
 ## 6. "locals" Block
+
 Defines **local variables** (computed values).
 
 ### Purpose:
--   Reduce repetition
-    
--   Improve readability
 
-  
-###  Sample code:
+- Reduce repetition
+- Improve readability
+
+### Sample code:
 
 ```bash
 locals {
@@ -139,7 +137,7 @@ locals {
 }
 ```
 
-###  Usage:
+### Usage:
 
 ```bash
 tags = {
@@ -148,16 +146,15 @@ tags = {
 ```
 
 ## 7. "data" Block
+
 Used to **read existing resources**.
 
 ### Purpose:
--   Fetch data from cloud/provider
-    
--   Do not create resources
 
-  
+- Fetch data from cloud/provider
+- Do not create resources
 
-###  Sample code:
+### Sample code:
 
 ```bash
 data "aws_ami" "latest_amazon_linux" {
@@ -167,16 +164,15 @@ data "aws_ami" "latest_amazon_linux" {
 ```
 
 ## 8. "module" Block
+
 Used to **reuse Terraform code**.
 
 ### Purpose:
--   Create reusable infrastructure components
-    
--   Keep code clean and scalable
 
-  
+- Create reusable infrastructure components
+- Keep code clean and scalable
 
-###  Sample code:
+### Sample code:
 
 ```bash
 module "vpc" {
@@ -185,19 +181,17 @@ module "vpc" {
 }
 ```
 
-##  "lifecycle" Block (inside resource)
+## "lifecycle" Block (inside resource)
+
 Controls **resource behavior**.
 
 ### Purpose:
--   Prevent deletion
-    
--   Ignore changes
-    
--   Create before destroy
 
-  
+- Prevent deletion
+- Ignore changes
+- Create before destroy
 
-###  Sample code:
+### Sample code:
 
 ```bash
 resource "aws_instance" "web" {
